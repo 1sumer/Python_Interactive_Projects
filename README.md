@@ -10,9 +10,6 @@ This repository contains a collection of interactive Python projects that showca
 ### 🌾 Crop Prediction using Machine Learning
 Predict the best crops to grow based on environmental factors using machine learning algorithms. This project helps in understanding how data science can revolutionize agriculture.
 
-### 🌱 Crop Yield & Fertilizer Prediction
-An advanced machine learning model that predicts crop yield and the most suitable fertilizers based on various parameters, helping farmers make informed decisions.
-
 ### 🔐 Login Project using Flask
 A secure web-based login system built using the Flask web framework. Learn the basics of web development, user authentication, and session handling in Python.
 
@@ -40,5 +37,5 @@ Projects that demonstrate Python's ability to handle real-time data processing, 
 Clone the repository to your local machine:
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/1sumer/Python_Interactive_Projects
 cd Interactive-Python-Projects
