@@ -1,0 +1,6 @@
+sketchpy
+opencv-python
+termcolor
+pyinstaller
+numpy
+matplotlib
