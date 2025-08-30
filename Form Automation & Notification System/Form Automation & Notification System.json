@@ -1,0 +1,263 @@
+{
+  "name": "Form Automation & Notification System",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "course-register",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -512,
+        -128
+      ],
+      "id": "bfd4fa42-4534-486d-8b6f-23432041a57b",
+      "name": "Webhook",
+      "webhookId": "d1944765-5ca9-4dc5-822f-05a940fc3a51"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "=Course Registration Confirmation",
+        "message": "=Hi {{ $json[\"name\"] }},<br><br>\nThank you for registering for <b>{{ $json[\"course\"] }}</b>.<br>\nWe will contact you shortly.<br><br>\nRegards,<br>\nTraining Team",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -96,
+        -128
+      ],
+      "id": "7e3d8253-e3a6-434f-b7b9-35f22130fb83",
+      "name": "Send a message",
+      "webhookId": "de9d399a-ce94-4580-b7d1-8e6a037368b4",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aS5JRqUtJzQ7F4E1",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "sgtest.analogica@gmail.com",
+        "subject": "New Leed",
+        "message": "=New Registration Received: <br><br>\n<b>Name:</b> {{ $('Append row in sheet').item.json.name }}<br>\n<b>Email:</b> {{ $('Append row in sheet').item.json.email }}<br>\n<b>Phone:</b> {{ $('Append row in sheet').item.json.phone }}<br>\n<b>City:</b> {{ $('Append row in sheet').item.json.city }}<br>\n<b>Education:</b> {{ $('Append row in sheet').item.json.education }}<br>\n<b>Course:</b> {{ $('Append row in sheet').item.json.course }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        112,
+        -128
+      ],
+      "id": "75341f7b-a9d7-43bb-af51-d35bd52cdf37",
+      "name": "Send a message1",
+      "webhookId": "aea21dc4-0bc1-48c8-9184-244cfb3ffac4",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aS5JRqUtJzQ7F4E1",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"message\": \"Thank you \" + $(\"Webhook\").item.json.body.name + \", your registration was successful!\" } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        320,
+        -128
+      ],
+      "id": "a29cab41-f143-4c1e-b2de-18ef7c1647c3",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1LDuN0csyfcME6T884oTjHzI5CpLh9c6F3pnJPC35bpA",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LDuN0csyfcME6T884oTjHzI5CpLh9c6F3pnJPC35bpA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $json.body.name }}",
+            "email": "={{ $json.body.email }}",
+            "phone": "={{ $json.body.phone }}",
+            "city": "={{ $json.body.city }}",
+            "education": "={{ $json.body.education }}",
+            "course": "={{ $json.body.course }}",
+            "row_number": 0
+          },
+          "matchingColumns": [
+            "name"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "education",
+              "displayName": "education",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "course",
+              "displayName": "course",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -304,
+        -128
+      ],
+      "id": "d0ae3a42-b438-493b-83a6-51a3ccbffc7a",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "EhkIl0yOkEet7Hlm",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8ec00891-b89b-4cdd-b48f-ad0e6c9731ab",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b01e6e1e30b1eff047bd32ad17a415d40e5ac9bc799b988400d0e2926aa7f20c"
+  },
+  "id": "w9GhLHn9M7FN1eBW",
+  "tags": []
+}

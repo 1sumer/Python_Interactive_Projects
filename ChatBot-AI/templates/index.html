@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #chat-container {
+            width: 70%;
+            margin: auto;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            min-height: 100px;
+            background-color: #f9f9f9;
+            text-align: left;
+            white-space: pre-line;
+        }
+        pre {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        b {
+            color: #d35400;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Chatbot</h1>
+    
+    <div id="chat-container">
+        <input type="text" id="user-input" placeholder="Type your message..." style="width: 80%; height: 30px;">
+        <button onclick="sendMessage()" style="height: 30px;">Send</button>
+        
+        <div id="response"></div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            let userMessage = $("#user-input").val();
+            
+            if (userMessage.trim() === "") {
+                alert("Please enter a message!");
+                return;
+            }
+
+            $.ajax({
+                url: "/chat",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ message: userMessage }),
+                success: function(response) {
+                    $("#response").html("<strong>Chatbot:</strong><br>" + response.reply);
+                },
+                error: function(xhr) {
+                    $("#response").html("<strong>Error:</strong> " + xhr.responseJSON.error);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

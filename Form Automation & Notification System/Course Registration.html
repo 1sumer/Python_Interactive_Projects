@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Course Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+      width: 400px;
+      max-width: 90%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form input, 
+    form select, 
+    form button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    form input:focus, 
+    form select:focus {
+      border-color: #4CAF50;
+      outline: none;
+      box-shadow: 0 0 4px rgba(76, 175, 80, 0.4);
+    }
+
+    form button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    form button:hover {
+      background: #45a049;
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Register for a Course</h1>
+    <form id="form">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="phone" placeholder="Phone Number" required>
+      <input type="text" name="city" placeholder="City" required>
+      <input type="text" name="education" placeholder="Education Background" required>
+
+      <label for="course">Choose a course:</label>
+      <select name="course" required>
+        <option>Data Science</option>
+        <option>ML & AI</option>
+        <option>Data Analyst and Business Intelligence</option>
+        <option>DevOps and Cloud Engineering (Azure/AWS)</option>
+        <option>Digital Marketing</option>
+        <option>Fullstack Web Development</option>
+      </select>
+
+      <button type="submit">Submit</button>
+    </form>
+    <p id="status">Waiting...</p>
+  </div>
+
+  <script>
+    const WEBHOOK_URL = "https://sgtest1.app.n8n.cloud/webhook-test/course-register";
+
+    document.getElementById('form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+
+      const res = await fetch(WEBHOOK_URL, { method: "POST", body: fd });
+      const text = await res.text();
+      document.getElementById('status').textContent = text;
+    });
+  </script>
+</body>
+</html>
